@@ -23,7 +23,7 @@ for letter in word_break:
 
 print(display)
 print(incorrect)
-print(word_break)
+#print(word_break)
 
 while len(incorrect) < 7 and display != word_break:
 
@@ -51,7 +51,7 @@ while len(incorrect) < 7 and display != word_break:
 
 	print(display)
 	print('incorrect', incorrect)
-	print(word_break)
+	#print(word_break)
 	print('correct', correct)
 	
 	if display == word_break:
