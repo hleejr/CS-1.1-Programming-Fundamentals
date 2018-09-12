@@ -1,62 +1,105 @@
-from random import randint,random
-import requests
+def game():
+	import random
+	
+	blank = []
+	correct = []
+	incorrect = []
 
-def get_word():
-	word_site = 'http://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain'
-	response = requests.get(word_site)
-	words = response.content.splitlines()
-	word = (words[randint(0,len(words)-1)])
-	wordstr= str(word)
-	game_word = (wordstr.lower())
-	return game_word
-
-game_word = get_word()
-word_break = list(game_word)
-
-alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-display = []
-incorrect = []
-correct = []
-
-for letter in word_break:
-	display.append("_")
-
-print(display)
-print(incorrect)
-#print(word_break)
-
-while len(incorrect) < 7 and display != word_break:
-
-	guess = raw_input("Can you guess the word? If you enter seven letters that are not in the word, the game is over!  Enter a letter! ").lower()
+	def get_word():
+		f = open('words.txt', 'r')
+		words_list = f.readlines()
+		f.close()
 		
-	try:
-		guess
-	except str:
-		pass
+		words_list = words_list[0].split(' ')
+		secret_word = random.choice(words_list)
+		return secret_word
 
-	if guess in alphabet and guess in word_break:
+	def check_guess(letter):
+		alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
-		correct.append(guess)
+		if letter not in alphabet:
 
-		display = [letter if guess == letter else "_" for letter in word_break]
-		display = [letter if letter in correct else "_" for letter in word_break]
+			print ("Invalid entry! You need to enter ONE letter from the english alphabet.")
 
-	if guess in alphabet and guess not in word_break:
+	def make_display(word):
+		for letter in word:
+			blank.append("_")
 
+		return blank
+
+	def check_word(letter, word):
+		global blank
+
+		if letter in word:
+			correct.append(guess)
+
+			blank = [letter if guess == letter else "_" for letter in word_break]
+			blank = [letter if letter in correct else "_" for letter in word_break]
+			return blank
+
+		elif letter not in word and letter not in incorrect:
 			incorrect.append(guess)
 
-	if guess not in alphabet:
+			blank = [letter if guess == letter else "_" for letter in word_break]
+			blank = [letter if letter in correct else "_" for letter in word_break]
+			return blank
+		
+		elif letter.isalpha() == False or len(letter) != 1 :
+			print("Invalid entry")
 
-		print ("Invalid entry! You need to enter a letter in the english alphabet.")
+			blank = [letter if guess == letter else "_" for letter in word_break]
+			blank = [letter if letter in correct else "_" for letter in word_break]
 
-	print(display)
-	print('incorrect', incorrect)
-	#print(word_break)
-	print('correct', correct)
+			return blank
+
+		else:
+			print("Invalid entry!")
+
+			blank = [letter if guess == letter else "_" for letter in word_break]
+			blank = [letter if letter in correct else "_" for letter in word_break]
+
+			return blank
 	
-	if display == word_break:
-		print('Congratulations!! You smart cookie, you.')
+	word_break = list(get_word())
+	make_display(word_break)
+	display = " ".join(blank)
+	
+	print (word_break)
+	print(display)
+	print("incorrect", incorrect)
+	print("correct", correct)
+	
+	blank = []
+	correct = []
+	incorrect = []
 
-	if len(incorrect) == 7:
+	while len(incorrect) < 7 and blank != word_break:
+		guess = input("Can you guess the word? If you enter seven letters that are not in the word, the game is over!  Enter a letter! ").lower()
+		
+		check_guess(guess)
+		blank = check_word(guess, word_break)
+		display = " ".join(blank)
 
-		print("Nope! Try again?!")
+		print(display)
+		print("incorrect", incorrect)
+		print("correct", correct)
+					
+		if list(blank) == word_break:
+			print('Congratulations!! You smart cookie, you.')
+					
+		if len(incorrect) == 7:
+
+			print("The word was {}! Try again?!".format(" ".join(word_break)))
+
+while True:
+	answer = input("Do you want to play? Enter y/yes or n/no!")
+	if answer not in ('y', 'n', 'yes', 'no'):
+		print ("Invalid input.")
+		break
+		
+	if answer == 'y' or answer == 'yes':
+		game()
+		
+	else:
+		print ("End game.")
+		break
