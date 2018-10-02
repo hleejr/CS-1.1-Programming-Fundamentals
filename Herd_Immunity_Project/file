@@ -1,0 +1,1 @@
+parameters:Population Size: pop_size	Percent Vaccinated: vacc_percentage	Virus: virus_name	mortality_rate: mortality_rate	Basic Reproduction Number: basic_repro_num	Initally infected: infected

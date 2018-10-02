@@ -1,0 +1,4 @@
+[
+  "person_test.py::test_person_init",
+  "person_test.py::test_person_survival"
+]

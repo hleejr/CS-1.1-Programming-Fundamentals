@@ -53,10 +53,10 @@ class Logger(object):
     def __init__(self, file_name):
         # TODO:  Finish this initialization method.  The file_name passed should be the
         # full file name of the file that the logs will be written to.
-        self.file_name = None
+        self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
-                       basic_repro_num):
+                       basic_repro_num, initial_infected):
         # TODO: Finish this method.  The simulation class should use this method
         # immediately upon creation, to log the specific parameters of the simulation
         # as the first line of the file.  This line of metadata should be tab-delimited
@@ -67,15 +67,28 @@ class Logger(object):
         # since 'w' overwrites the file.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
+        file = open(self.file_name,"w")
+        file.write("parameters:"+"Population Size: "+(pop_size)+"\t"+"Percent Vaccinated: " + (vacc_percentage) + "\t" + "Virus: "+ (virus_name) + "\t" + "mortality_rate: " + (mortality_rate) + "\t" + "Basic Reproduction Number: "+(basic_repro_num)+"\t"+"Initally infected: "+initial_infected+"\n")
         pass
 
     def log_interaction(self, person1, person2, did_infect=None,
                         person2_vacc=None, person2_sick=None):
+        file = open(self.file_name,"a")
+        if(did_infect):
+            file.write("Person-{} infected Person-{}\n".format(person1._id,person2._id))
+        elif(person2_vacc):
+            file.write("Person-{} was not able to infect Person-{} because they were vaccinated\n".format(person1._id,person2._id))
+        elif(person2_sick):
+            file.write("Person-{} was not able to infect Person-{} because they were already sick\n".format(person1._id,person2._id))
+        else:
+            file.write("Person-{} was not able to infect Person-{} by pure luck\n".format(person1._id,person2._id))
+
+
         # TODO: Finish this method.  The Simulation object should use this method to
         # log every interaction a sick individual has during each time step.  This method
         # should accomplish this by using the information from person1 (the infected person),
         # person2 (the person randomly chosen for the interaction), and the optional
-        # keyword arguments passed into the method.  See documentation for more info
+        # keyword arguments passed into theethod.  See documentation for more info
         # on the format of the logs that this method should write.
         # NOTE:  You'll need to think
         # about how the booleans passed (or not passed) represent
@@ -104,3 +117,8 @@ class Logger(object):
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
         pass
+
+if __name__=="__main__":
+    logger = Logger("file")
+    logger.write_metadata( "pop_size", "vacc_percentage", "virus_name", "mortality_rate",
+                       "basic_repro_num","infected")
