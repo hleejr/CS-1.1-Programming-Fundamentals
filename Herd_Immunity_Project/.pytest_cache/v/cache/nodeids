@@ -1,4 +1,6 @@
 [
   "person_test.py::test_person_init",
-  "person_test.py::test_person_survival"
+  "person_test.py::test_infection",
+  "person_test.py::test_person_death",
+  "person_test.py::test_person_survive"
 ]
