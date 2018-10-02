@@ -68,7 +68,7 @@ class Logger(object):
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
         file = open(self.file_name,"w")
-        file.write("parameters:"+"Population Size: "+(pop_size)+"\t"+"Percent Vaccinated: " + (vacc_percentage) + "\t" + "Virus: "+ (virus_name) + "\t" + "mortality_rate: " + (mortality_rate) + "\t" + "Basic Reproduction Number: "+(basic_repro_num)+"\t"+"Initally infected: "+initial_infected+"\n")
+        file.write("parameters:"+"Population Size: "+str(pop_size)+"\t"+"Percent Vaccinated: " + str(vacc_percentage) + "\t" + "Virus: "+ (virus_name) + "\t" + "mortality_rate: " + str(mortality_rate) + "\t" + "Basic Reproduction Number: "+str(basic_repro_num)+"\t"+"Initially infected: "+str(initial_infected)+"\n")
         pass
 
     def log_interaction(self, person1, person2, did_infect=None,
@@ -97,7 +97,13 @@ class Logger(object):
         # event logged ends up on a separate line!
         pass
 
-    def log_infection_survival(self, person, did_die_from_infection):
+    def log_infection_survival(self, person, survived):
+        file = open(self.file_name,"a")
+        if not survived:
+            file.write("Person-{} was killed by the infection\n".format(person))
+        else:
+            file.write("Person-{} survived and is now vaccinated\n".format(person))
+
         # TODO: Finish this method.  The Simulation object should use this method to log
         # the results of every call of a Person object's .resolve_infection() method.
         # If the person survives, did_die_from_infection should be False.  Otherwise,
@@ -107,7 +113,20 @@ class Logger(object):
         # event logged ends up on a separate line!
         pass
 
-    def log_time_step(self, time_step_number):
+    def log_time_step(self, time_step,starting):
+        file = open(self.file_name, "a")
+        if(starting):
+            file.write("****time step {} starting**** \n".format(time_step))
+        else:
+            file.write("****time step {} Ending**** \n".format(time_step))
+
+    def log_new_infected(self, infected):
+        file = open(self.file_name, "a")
+        file.write("Next wave of infected: ")
+        for i in infected:
+            file.write(str(i)+", ")
+        file.write("\n")
+
         # TODO: Finish this method.  This method should log when a time step ends, and a
         # new one begins.  See the documentation for more information on the format of the log.
         # NOTE: Stretch challenge opportunity! Modify this method so that at the end of each time
@@ -117,6 +136,10 @@ class Logger(object):
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
         pass
+
+    def log_end_game(self,senario):
+        file = open(self.file_name, "a")
+        file.write(senario+"\n")
 
 if __name__=="__main__":
     logger = Logger("file")
