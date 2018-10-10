@@ -2,5 +2,9 @@
   "person_test.py::test_person_init",
   "person_test.py::test_infection",
   "person_test.py::test_person_death",
-  "person_test.py::test_person_survive"
+  "person_test.py::test_person_survive",
+  "sim_test.py::test_sim_init",
+  "sim_test.py::test_sim_create_pop",
+  "sim_test.py::test_sim_should_continue",
+  "sim_test.py::test_time_step"
 ]

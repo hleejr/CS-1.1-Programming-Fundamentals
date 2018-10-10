@@ -1,0 +1,2 @@
+parameters:Population Size: 20	Percent Vaccinated: 0.3	Virus: Test Virus	mortality_rate: 0	Basic Reproduction Number: 1	Initially infected: 1
+The Infection has been eradicated, there were 20 people left
