@@ -270,6 +270,7 @@ class Simulation(object):
 if __name__ == "__main__":
     for v in range(len(viruses)):
         viruses[v].display(v)
-    my_virus = viruses[int(input("which virus would you like to use?"))]
+    my_virus = viruses[int(input("which virus would you like to use? "))]
+    per_vacc = float(input("what percentage of the population is vaccinated? "))
     simulation = Simulation(1000, .5, my_virus)
     simulation.run()
