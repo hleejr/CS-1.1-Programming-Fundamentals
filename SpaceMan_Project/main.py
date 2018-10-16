@@ -64,7 +64,6 @@ def game():
 	make_display(word_break)
 	display = " ".join(blank)
 	
-	print (word_break)
 	print(display)
 	print("incorrect", incorrect)
 	print("correct", correct)
