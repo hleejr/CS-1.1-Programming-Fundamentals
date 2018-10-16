@@ -69,7 +69,6 @@ class Logger(object):
         # event logged ends up on a separate line!
         file = open(self.file_name,"w")
         file.write("parameters:"+"Population Size: "+str(pop_size)+"\t"+"Percent Vaccinated: " + str(vacc_percentage) + "\t" + "Virus: "+ (virus_name) + "\t" + "mortality_rate: " + str(mortality_rate) + "\t" + "Basic Reproduction Number: "+str(basic_repro_num)+"\t"+"Initially infected: "+str(initial_infected)+"\n")
-        pass
 
     def log_interaction(self, person1, person2, did_infect=None,
                         person2_vacc=None, person2_sick=None):
@@ -95,7 +94,6 @@ class Logger(object):
         # all the possible edge cases!
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        pass
 
     def log_infection_survival(self, person, survived):
         file = open(self.file_name,"a")
@@ -111,7 +109,6 @@ class Logger(object):
         # on the format of the log.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        pass
 
     def log_time_step(self, time_step,starting):
         file = open(self.file_name, "a")
@@ -134,8 +131,7 @@ class Logger(object):
         # people infected, the number of people dead, etc.  You may want to create a helper class
         # to compute these statistics for you, as a Logger's job is just to write logs!
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
-        pass
+        # event logged ends up on a separate line
 
     def log_end_game(self,senario):
         file = open(self.file_name, "a")
